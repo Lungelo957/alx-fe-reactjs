@@ -23,7 +23,7 @@ function App() {
       {/* ✅ Use UserProfile with props */}
       <UserProfile 
         name="Alice" 
-        age="26" 
+        age="25" 
         bio="Loves hiking and photography" 
       />
 
