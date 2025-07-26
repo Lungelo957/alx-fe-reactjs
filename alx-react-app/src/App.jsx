@@ -6,6 +6,8 @@ import WelcomeMessage from './components/WelcomeMessage';
 import Header from './components/Header';
 import MainContent from './components/MainContent';
 import Footer from './components/Footer';
+import React from 'react';
+import UserProfile from './components/UserProfile';
 
 function App() {
  
@@ -15,9 +17,24 @@ function App() {
       <Header />
       <WelcomeMessage />
       <MainContent />
-      <Footer />
       
+      <h1 style={{ textAlign: 'center' }}>User Profiles</h1>
+
+      {/* ✅ Use UserProfile with props */}
+      <UserProfile 
+        name="Alice" 
+        age="26" 
+        bio="Loves hiking and photography" 
+      />
+
+      <UserProfile 
+        name="John Doe" 
+        age="30" 
+        bio="Software engineer who enjoys coding and traveling" 
+      />
+      <Footer />
     </div>
+    
   )
 }
 
