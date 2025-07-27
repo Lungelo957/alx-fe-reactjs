@@ -6,29 +6,25 @@ const AddRecipeForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (!title || !description) return;
+  const handleSubmit = (e) => {
+    e.preventDefault();
     addRecipe({ id: Date.now(), title, description });
     setTitle("");
     setDescription("");
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ padding: "20px" }}>
-      <h2>Add New Recipe</h2>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
+        placeholder="Recipe Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Title"
-        style={{ display: "block", margin: "10px 0", padding: "5px" }}
       />
       <textarea
+        placeholder="Recipe Description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        placeholder="Description"
-        style={{ display: "block", margin: "10px 0", padding: "5px" }}
       />
       <button type="submit">Add Recipe</button>
     </form>
@@ -36,4 +32,3 @@ const AddRecipeForm = () => {
 };
 
 export default AddRecipeForm;
-
