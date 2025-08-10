@@ -1,30 +1,48 @@
 import { useState } from "react";
 
-const SearchBar = ({ onSearch }) => {
-  const [username, setUsername] = useState("");
+function Search() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (username.trim()) {
-      onSearch(username);
+  const handleSearch = async (username) => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`https://api.github.com/users/${username}`);
+      if (!res.ok) throw new Error("User not found");
+      const data = await res.json();
+      setUser(data);
+    } catch {
+      setError("Looks like we cant find the user");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
-      <input
-        type="text"
-        placeholder="Enter GitHub username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        className="border p-2 flex-1 rounded"
-        required
-      />
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+    <div>
+      {/* Search input */}
+      <input type="text" placeholder="Enter GitHub username" id="username" />
+      <button onClick={() => handleSearch(document.getElementById("username").value)}>
         Search
       </button>
-    </form>
-  );
-};
 
-export default SearchBar;
+      {/* Loading state */}
+      {loading && <p>Loading</p>}
+
+      {/* Error state */}
+      {error && <p>{error}</p>}
+
+      {/* User data */}
+      {user && (
+        <div>
+          <img src={user.avatar_url} alt={user.login} />
+          <p>{user.login}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default Search;
