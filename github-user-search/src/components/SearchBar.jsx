@@ -1,26 +1,26 @@
 import { useState } from "react";
 
 const SearchBar = ({ onSearch }) => {
-  const [query, setQuery] = useState("");
+  const [username, setUsername] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(query);
+    if (username.trim()) {
+      onSearch(username);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
       <input
         type="text"
-        placeholder="Search GitHub users..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="border rounded px-3 py-2 w-full"
+        placeholder="Enter GitHub username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        className="border p-2 flex-1 rounded"
+        required
       />
-      <button
-        type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-      >
+      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
         Search
       </button>
     </form>
